@@ -1,0 +1,152 @@
+.wrapper {
+    padding: 20px;
+}
+
+.jumbotron-fluid {
+    padding: 0;
+}
+
+.jumbotron__head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.col-md-4 {
+    width: 33%;
+}
+.card {
+    display: block;
+}
+.form-check {
+    padding-top: 30px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input, button, textarea {
+    outline: none;
+}
+
+textarea::-moz-placeholder {
+    color: red;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0 black;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between!important;
+}
+.center {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+label {
+    margin: 0;
+}
+.container {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+.wrapper__content {
+    /*padding-top: 0!important;*/
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+    align-items: center;
+}
+.btn-light {
+    margin: 7px;
+}
+
+.dropdown-menu.show {
+    width: 300px;
+    left: -45px!important;
+}
+
+.form-control {
+    margin-right: 15px;
+    padding: 0;
+    padding-left: 0.4rem;
+}
+
+.card-img-top {
+    height: 12em;
+}
+.list-group-item {
+    padding: 0;
+    padding-left: 5px;
+}
+.card-body {
+    font-size: 14px;
+    /*height: 45%;*/
+}
+.row {
+    height: 40%;
+}
+.col-width {
+    padding: 4px!important;
+}
+.status {
+    font-size: 20px;
+    color: maroon;
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.wrapper__content {
+    padding: 10px;
+}
+
+.form-check {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-top: .2rem;
+}
+.alert {
+    padding: 0.4rem 1.2rem;
+}
+.alert-info {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert-success {
+    /*padding: 0;*/
+    /*margin: 0;*/
+    font-size: 14px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.button {
+    margin: 0!important;
+}
