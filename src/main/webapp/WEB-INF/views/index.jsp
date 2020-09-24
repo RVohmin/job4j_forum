@@ -18,10 +18,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            <%@include file='../../css/base.css' %>
-            <%@include file='../../css/main.css' %>
-        </style>
+    <style>
+        <%@include file='../../css/base.css' %>
+        <%@include file='../../css/main.css' %>
+    </style>
 
 
     <title>Форум job4j</title>
@@ -30,45 +30,50 @@
 <div class="container">
     <div class="alert alert-success" role="alert">
         <a href="<c:url value='/logout'/>">Пользователь :
-                ${username} | Выйти</a>
-    <a href="<c:url value="/"/>"> На главную </a>
-
+            ${user.username} | Выйти</a>
     </div>
-    <div class="container mt-3">
-        <div class="row">
-            <h4>Форум job4j</h4>
-        </div>
-        <div class="row">
-            <table class="table">
-                <thead>
+    <%--    <div class="container mt-3">--%>
+    <div class="row">
+        <h4>Форум job4j</h4>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="col-md-4">Тема</th>
+                <th scope="col" class="col-md-4">Дата создания</th>
+                <th scope="col" class="col-md-4">Автор</th>
+                <th scope="col" class="col-md-6"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${topics}" var="topic">
                 <tr>
-                    <th scope="col" class="col-md-4">Тема</th>
-                    <th scope="col" class="col-md-4">Дата создания</th>
-                    <th scope="col" class="col-md-4">Автор</th>
+                    <td class="col-md-4">
+                        <a href='<c:url value="/topic/edit?id=${topic.id}"/>'>
+                            <i class="fa fa-edit mr-3"></i>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/posts/post?id=${topic.id}">
+                                ${topic.name}</a>
+                    </td>
+                    <td class="col-md-4">
+                        <fmt:formatDate value="${topic.created.time}" type="date"
+                                        dateStyle="long"/>
+                    </td class="col-md-4">
+                    <td>
+                        <c:out value="${topic.creator.username}"/>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${topics}" var="topic">
-                    <tr>
-                        <td class="col-md-4">
-                            <a href="${pageContext.request.contextPath}/post?id=${topic.id}">${topic.name}</a>
-                        </td>
-                        <td class="col-md-4">
-                            <fmt:formatDate value="${topic.created.time}" type="date"
-                                            dateStyle="long"/>
-                        </td class="col-md-4">
-                        <td>
-                            <c:out value="${username}"/>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <form action="<c:url value="/topic"/>" method="get">
-                <input class="btn btn-info" type="submit" value="Создать тему"/>
-            </form>
-        </div>
+            </c:forEach>
+            </tbody>
+        </table>
+
+        <form action="<c:url value="/topic"/>" method="get">
+            <input type="hidden" name="username" value="${user.username}">
+            <input class="btn btn-info" type="submit" value="Создать тему"/>
+        </form>
     </div>
+    <%--    </div>--%>
 </div>
 </body>
 </html>

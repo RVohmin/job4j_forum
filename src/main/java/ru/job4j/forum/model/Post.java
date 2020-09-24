@@ -1,27 +1,40 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Entity
+@Table(name = "posts")
 public class Post {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
     private String description;
-    private Calendar created;
+    private Calendar created = Calendar.getInstance();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "topic_id")
     private Topic topic;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User creator;
 
     public Post(String name, String description) {
         this.name = name;
         this.description = description;
-        created = Calendar.getInstance();
     }
 
-    public int getId() {
+    public Post() {
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -64,6 +77,18 @@ public class Post {
     public void setCreator(User creator) {
         this.creator = creator;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Post{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", description='" + description + '\'' +
+//                ", created=" + created +
+//                ", topic=" + topic +
+//                ", creator=" + creator +
+//                '}';
+//    }
 
     @Override
     public boolean equals(Object o) {

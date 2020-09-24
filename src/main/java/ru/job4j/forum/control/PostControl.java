@@ -5,35 +5,66 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.repository.MemStore;
+import ru.job4j.forum.model.Topic;
+import ru.job4j.forum.model.User;
+import ru.job4j.forum.repository.PostRepository;
+import ru.job4j.forum.repository.TopicRepository;
+import ru.job4j.forum.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/post")
+@RequestMapping("/posts")
 public class PostControl {
-    private final MemStore memStore;
+    private final TopicRepository topicRepository;
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
-    public PostControl(MemStore memStore) {
-        this.memStore = memStore;
+    public PostControl(TopicRepository topicRepository, PostRepository postRepository, UserRepository userRepository) {
+        this.topicRepository = topicRepository;
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping
-    public String showPosts(@RequestParam("id") int topicId, Model model) {
-        model.addAttribute("theme", memStore.findTopicById(topicId).getName());
-        model.addAttribute("topicId", topicId);
-        model.addAttribute("posts", memStore.getAllPosts(topicId));
+    @GetMapping("/post")
+    public String showPosts(@RequestParam("id") Long topicId, Model model) {
+        Topic topic = topicRepository.findById(topicId).get();
+        model.addAttribute("topic", topic);
         model.addAttribute("username",
                 SecurityContextHolder.getContext().getAuthentication().getName());
         return ("post");
     }
 
-    @PostMapping("/create")
+    @GetMapping("/edit")
+    public String edit(@RequestParam("id") long id, Model model) {
+        model.addAttribute("post", postRepository.findById(id).get());
+        model.addAttribute("username",
+                SecurityContextHolder.getContext().getAuthentication().getName());
+        return "post/edit";
+    }
+
+    @PostMapping("/save")
     public String addPost(@ModelAttribute Post post, HttpServletRequest req, Model model) {
-        int topicId = Integer.parseInt(req.getParameter("topicId"));
-        memStore.addPost(topicId , post);
-        model.addAttribute("topicId", topicId);
-        model.addAttribute("posts", memStore.getAllPosts(topicId));
-        return "/post";
+        var topicId = Long.parseLong(req.getParameter("topicId"));
+        Topic topic = topicRepository.findById(topicId).get();
+        User user = userRepository.findByUsername(SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName());
+        Post tempPost = new Post(post.getName(), post.getDescription());
+        tempPost.setCreator(user);
+        tempPost.setTopic(topic);
+        tempPost.setId(post.getId());
+        postRepository.save(tempPost);
+        model.addAttribute("topic", topic);
+        model.addAttribute("posts", topic.getPosts());
+        return "post";
+    }
+
+    @PostMapping("/delete")
+    public String delete(HttpServletRequest req) {
+        Post post = postRepository.findById(Long.valueOf(req.getParameter("id"))).get();
+        postRepository.delete(post);
+        return "redirect:/";
     }
 }

@@ -1,6 +1,5 @@
 package ru.job4j.forum.control;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -16,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginControl {
+
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
-        String userName = (String) model.getAttribute("username");
-        String password = (String) model.getAttribute("password");
-        User user = new User(userName, password, "USER");
+        var userName = (String) model.getAttribute("username");
+        var password = (String) model.getAttribute("password");
+        var user = new User(userName, password, "USER");
         model.addAttribute(user);
         String errorMessage = null;
         if (error != null) {
@@ -35,13 +35,9 @@ public class LoginControl {
         return "login";
     }
 
-    @GetMapping("/reg")
-    public String redirect() {
-        return "reg";
-    }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        var auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }

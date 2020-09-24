@@ -18,10 +18,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            <%@include file='../../css/base.css' %>
-            <%@include file='../../css/main.css' %>
-        </style>
+    <style>
+        <%@include file='../../css/base.css' %>
+        <%@include file='../../css/main.css' %>
+    </style>
 
 
     <title>Форум job4j</title>
@@ -32,36 +32,46 @@
         <a href="<c:url value='/logout'/>">Пользователь :
             ${username} | Выйти</a>
         <a href="<c:url value="/"/>"> На главную </a>
-
     </div>
-    <h2><c:out value="${theme}"/></h2>
+    <h2>Тема: <c:out value="${topic.name}"/></h2>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col" class="col-md-4">тема поста</th>
+            <th scope="col" class="col-md-4">заголовок поста</th>
             <th scope="col" class="col-md-4">текст поста</th>
-            <th scope="col" class="col-md-4">дата поста</th>
+            <th scope="col" class="col-md-4">автор</th>
+            <th scope="col" class="col-md-4">дата</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${posts}" var="post">
+        <c:forEach items="${topic.posts}" var="post">
             <tr>
-                <td class="col-md-4">
+                <td class="col-xs-3">
+                    <a href='<c:url value="/posts/edit?id=${post.id}"/>'>
+                        <i class="fa fa-edit mr-3"></i>
+                    </a>
                     <c:out value="${post.name}"/>
                 </td>
-                <td class="col-md-4">
+                <td class="col-md-3">
                     <c:out value="${post.description}"/>
                 </td>
-                <td class="col-md-4">
+                <td class="col-xs-1">
+                    <c:out value="${post.creator.username}"/>
+                </td>
+                <td class="col-md-1">
                     <fmt:formatDate value="${post.created.time}" type="date"
-                                    dateStyle="long"/>
+                                    dateStyle="short"/>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <form action="<c:url value="/post/create"/>" method="post">
-        <input type="hidden" name="topicId" value="${topicId}">
+    <hr>
+    <form action="<c:url value="/posts/save"/>" method="post">
+        <div class="form-group col-md-3">
+            <h5>Добавить сообщение</h5>
+        </div>
+        <input type="hidden" name="topicId" value="${topic.id}">
         <div class="form-group col-md-3">
             <label for="input">Заголовок поста</label>
             <input class="form-control" name="name" id="input">
@@ -71,8 +81,10 @@
             <textarea class="form-control" name="description" id="textarea"
                       rows="3"></textarea>
         </div>
-        <input type="hidden" value="${posts}">
-        <input class="btn btn-info" type="submit" value="Добавить сообщение"/>
+        <input type="hidden" name="topicId" value="${topic.id}">
+        <div class="form-group col-md-3">
+            <input class="btn btn-info" type="submit" value="Добавить сообщение"/>
+        </div>
     </form>
 </div>
 </body>

@@ -1,15 +1,27 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@Entity
+@Table(name = "topics")
 public class Topic {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
+
     private Calendar created;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User creator;
-    private final List<Post> posts;
+
+    @OneToMany(mappedBy = "topic")
+    private List<Post> posts;
 
     public Topic(String name) {
         this.name = name;
@@ -17,11 +29,14 @@ public class Topic {
         posts = new ArrayList<>();
     }
 
-    public int getId() {
+    public Topic() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,14 +72,14 @@ public class Topic {
         posts.add(post);
     }
 
-    @Override
-    public String toString() {
-        return "Topic{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", created=" + created +
-                ", creator=" + creator +
-                ", posts=" + posts +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Topic{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", created=" + created +
+//                ", creator=" + creator +
+//                ", posts=" + posts +
+//                '}';
+//    }
 }

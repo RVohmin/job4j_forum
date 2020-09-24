@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class MemStore {
     private final Map<Integer, Post> posts = new HashMap<>();
-    private final Map<Integer, Topic> topics = new HashMap<>();
+    private final Map<Long, Topic> topics = new HashMap<Long, Topic>();
     private final List<User> users = new ArrayList<>();
-    AtomicInteger postsID = new AtomicInteger(0);
-    AtomicInteger topicsID = new AtomicInteger(0);
+    AtomicLong postsID = new AtomicLong(0);
+    AtomicLong topicsID = new AtomicLong(0);
 
     public List<Post> getAllPosts(int topicId) {
         return topics.get(topicId).getPosts();
@@ -27,11 +27,11 @@ public class MemStore {
         return new ArrayList<>(topics.values());
     }
 
-    public Topic findTopicById(int id) {
+    public Topic findTopicById(long id) {
         return topics.get(id);
     }
 
-    public Post findPostById(int id) {
+    public Post findPostById(long id) {
         return posts.get(id);
     }
 
@@ -42,7 +42,7 @@ public class MemStore {
         topics.put(topic.getId(), topic);
     }
 
-    public void addPost(int id, Post post) {
+    public void addPost(Long id, Post post) {
         if (post.getId() == 0) {
             post.setId(postsID.incrementAndGet());
         }

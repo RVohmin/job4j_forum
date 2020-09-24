@@ -20,52 +20,52 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<%--    <style>--%>
-<%--        <%@include file='../../css/base.css' %>--%>
-<%--        <%@include file='../../css/main.css' %>--%>
-<%--    </style>--%>
+    <%--    <style>--%>
+    <%--        <%@include file='../../css/base.css' %>--%>
+    <%--        <%@include file='../../css/main.css' %>--%>
+    <%--    </style>--%>
     <title>forum</title>
 </head>
 <body>
 <div class="container">
-<div class="wrapper__content">
-    <form class="col-md-6" name='login' action="<c:url value='/login'/>" method='POST'>
-        <div class="card text-center">
-            <div class="card-header">
-                <c:if test="${not empty errorMessage}">
-                    <div style="color:red; font-weight: bold;">
-                            ${errorMessage}
+    <div class="wrapper__content">
+        <form class="col-md-6" name='login' action="<c:url value='/login'/>" method='POST'>
+            <div class="card text-center">
+                <div class="card-header">
+                    <c:if test="${not empty errorMessage}">
+                        <div style="color:red; font-weight: bold;">
+                                ${errorMessage}
+                        </div>
+                    </c:if>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Авторизация пользователя</h4>
+                    <div class="">
+                        <input type="text" class="form-control" name='username' placeholder="Логин"
+                               autocomplete="on">
                     </div>
-                </c:if>
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">Авторизация пользователя</h4>
-                <div class="">
-                    <input type="text" class="form-control" name='username' placeholder="Логин">
+                    <br/>
+                    <div class="">
+                        <input type="password" class="form-control" name='password'
+                               placeholder="Пароль" autocomplete="on">
+                    </div>
+                    <br/>
+                    <input class="btn btn-success col-md-4" name="submit" type="submit"
+                           value="Войти"/>
+                    <a class="btn btn-primary col-md-4" href="<c:url value='/reg'/>">Регистрация</a>                </div>
+                <div class="card-footer text-muted">
+                    или зарегистрироваться
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
-                <br/>
-                <div class="">
-                    <input type="password" class="form-control" name='password'
-                           placeholder="Пароль">
-                </div>
-                <br/>
-                <input class="btn btn-success col-md-4" name="submit" type="submit" value="Войти"/>
-                <a class="btn btn-primary col-md-4" href="<c:url value='/reg'/>">Регистрация</a>
-            </div>
-            <div class="card-footer text-muted">
-                или зарегистрироваться
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
             </div>
 
-        </div>
-
-        <div class="col col-md-6">
+            <div class="col col-md-6">
 
 
-
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 </div>
 
 </body>
