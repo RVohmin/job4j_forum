@@ -21,7 +21,6 @@ public class Main extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        Main.getPass();
         SpringApplication.run(Main.class, args);
     }
 }
