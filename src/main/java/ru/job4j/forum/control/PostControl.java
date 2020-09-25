@@ -58,7 +58,7 @@ public class PostControl {
         postRepository.save(tempPost);
         model.addAttribute("topic", topic);
         model.addAttribute("posts", topic.getPosts());
-        return "post";
+        return "redirect:/";
     }
 
     @PostMapping("/delete")
