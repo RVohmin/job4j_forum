@@ -2,7 +2,12 @@
 language: java
 jdk:
   - openjdk14
-
+services:
+  - postgresql
+before_install:
+  - psql -c 'create database forum;' -U postgres
+install: true
+script: mvn clean package -DskipTests=true
 sudo: false
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
