@@ -1,15 +1,15 @@
-drop table if exists authorities;
+-- drop table if exists authorities;
 CREATE TABLE if not exists authorities
 (
     id        serial primary key,
     authority VARCHAR(50) NOT NULL unique
 );
-insert into authorities (authority)
-values ('ROLE_ADMIN');
-insert into authorities (authority)
-values ('ROLE_USER');
+-- insert into authorities (authority)
+-- values ('ROLE_ADMIN');
+-- insert into authorities (authority)
+-- values ('ROLE_USER');
 
-drop table if exists users;
+-- drop table if exists users;
 CREATE TABLE if not exists users
 (
     id           serial primary key,
@@ -18,12 +18,12 @@ CREATE TABLE if not exists users
     enabled      boolean default true,
     authority_id int          not null references authorities (id)
 );
-insert into users (username, password, authority_id)
-values ('root', '$2a$10$mz/VdWBUL1cCFDfX2ipqXegjNunD3Zp2p272jiMDh/TW.ks8LTjmS',
-        (select id from authorities where authority = 'ROLE_ADMIN'));
-select * from users;
+-- insert into users (username, password, authority_id)
+-- values ('root', '$2a$10$mz/VdWBUL1cCFDfX2ipqXegjNunD3Zp2p272jiMDh/TW.ks8LTjmS',
+--         (select id from authorities where authority = 'ROLE_ADMIN'));
+-- select * from users;
 
-drop table if exists topics;
+-- drop table if exists topics;
 create table if not exists topics
 (
     id      serial primary key,
@@ -31,9 +31,9 @@ create table if not exists topics
     created timestamp without time zone default now(),
     user_id int references users (id)
 );
-select * from topics;
+-- select * from topics;
 
-drop table if exists posts;
+-- drop table if exists posts;
 create table if not exists posts
 (
     id          serial primary key,
@@ -43,4 +43,4 @@ create table if not exists posts
     user_id     int references users (id),
     topic_id    int references topics (id)
 );
-select * from posts;
+-- select * from posts;
