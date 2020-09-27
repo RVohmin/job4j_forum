@@ -42,15 +42,15 @@ public class TopicControl {
         return "redirect:/";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute Topic topic) {
-        Topic tempTopic = topicRepository.findById(topic.getId()).get();
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute Topic topic) {
+        Topic tempTopic = topicRepository.findById(id).get();
         tempTopic.setName(topic.getName());
         topicRepository.save(tempTopic);
         return "redirect:/";
     }
-    @GetMapping("/edit")
-    public String getViewUpdate(@RequestParam("id") long id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String getViewUpdate(@PathVariable("id") Long id, Model model) {
         model.addAttribute("topic", topicRepository.findById(id).get());
         model.addAttribute("username", SecurityContextHolder
                 .getContext()

@@ -33,22 +33,16 @@
     <a href="<c:url value="/"/>"> На главную </a>
 </div>
 <div class="container">
-    <h2>Создание новой темы</h2>
-    <form action="<c:url value="/topic/update"/>" class="form-inline" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <h2>Редактирование темы</h2>
+    <form action="<c:url value="/topic/update/${topic.id}"/>" class="form-inline" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="newTheme" class="sr-only">Название новой темы</label>
-        <input type="text" class="form-control" name="name" id="newTheme"
-               placeholder="Тема" value="${topic.name}">
-    </div>
-        <%--    <div class="form-group col-md-5">--%>
-        <%--        <label for="textarea">Описание</label>--%>
-        <%--        <textarea class="form-control" name="describe" id="textarea"--%>
-        <%--                  rows="2"></textarea>--%>
-        <%--    </div>--%>
-    <input type="hidden" name="id" value="${topic.id}">
-    <button type="submit" class="btn btn-primary mb-2">Создать</button>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="newTheme" class="sr-only">Редактирование темы</label>
+            <input type="text" class="form-control" name="name" id="newTheme"
+                   placeholder="Тема" value="${topic.name}">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
     </form>
 </div>
 </body>
