@@ -2,11 +2,7 @@ package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.Topic;
-import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.PostRepository;
-import ru.job4j.forum.repository.TopicRepository;
-import ru.job4j.forum.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +10,9 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostRepository posts;
-    private final TopicRepository topics;
-    private final UserRepository users;
 
-    public PostService(PostRepository posts, TopicRepository topics, UserRepository users) {
+    public PostService(PostRepository posts) {
         this.posts = posts;
-        this.topics = topics;
-        this.users = users;
-    }
-
-    public List<Topic> getAllTopics() {
-        return (List<Topic>) topics.findAll();
     }
 
     public List<Post> getAllPosts(long id) {
@@ -33,7 +21,22 @@ public class PostService {
         return rsl;
     }
 
-    public User findByUsername(String username) {
-        return users.findByUsername(username);
+    public Post findById(long id) {
+        return posts.findById(id).get();
+    }
+
+    public void create(Post post) {
+        posts.save(post);
+    }
+
+    public void delete(Post post) {
+        posts.delete(post);
+    }
+
+    public void update(Post updPost) {
+        Post post = findById(updPost.getId());
+        post.setName(updPost.getName());
+        post.setCreated(updPost.getCreated());
+        posts.save(post);
     }
 }

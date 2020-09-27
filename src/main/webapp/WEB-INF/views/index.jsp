@@ -50,10 +50,10 @@
             <c:forEach items="${topics}" var="topic">
                 <tr>
                     <td class="col-md-4">
-                        <a href='<c:url value="/topic/edit?id=${topic.id}"/>'>
+                        <a href='<c:url value="/topic/edit/${topic.id}"/>'>
                             <i class="fa fa-edit mr-3"></i>
                         </a>
-                        <a href="${pageContext.request.contextPath}/posts/post?id=${topic.id}">
+                        <a href="${pageContext.request.contextPath}/posts/post/${topic.id}">
                                 ${topic.name}</a>
                     </td>
                     <td class="col-md-4">
@@ -69,7 +69,6 @@
         </table>
 
         <form action="<c:url value="/topic"/>" method="get">
-            <input type="hidden" name="username" value="${user.username}">
             <input class="btn btn-info" type="submit" value="Создать тему"/>
         </form>
     </div>

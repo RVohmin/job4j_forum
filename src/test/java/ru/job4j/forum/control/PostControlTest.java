@@ -13,19 +13,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 class PostControlTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @MockBean
-//    private PostRepository posts;
-
     @Test
     @WithMockUser
     public void shouldReturnPostView() throws Exception {
-        this.mockMvc.perform(get("/posts/post?id=2"))
+        this.mockMvc.perform(get("/posts/post/2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("post"));
@@ -34,21 +32,10 @@ class PostControlTest {
     @Test
     @WithMockUser
     public void shouldReturnPostEdit() throws Exception {
-        this.mockMvc.perform(get("/posts/edit?id=79"))
+        this.mockMvc.perform(get("/posts/edit/87"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("post/edit"));
     }
 
-//    @Test
-//    @WithMockUser
-//    public void shouldReturnDefaultMessage() throws Exception {
-//        this.mockMvc.perform(post("/posts/save")
-//                .param("name","Куплю ладу-грант. Дорого."))
-//                .andDo(print())
-//                .andExpect(status().is3xxRedirection());
-//        ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
-//        verify(posts).save(argument.capture());
-//        assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
-//    }
 }

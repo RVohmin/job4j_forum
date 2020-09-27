@@ -44,10 +44,11 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${topic.posts}" var="post">
+        <c:forEach items="${topic.posts}"
+                   var="post">
             <tr>
                 <td class="col-xs-3">
-                    <a href='<c:url value="/posts/edit?id=${post.id}"/>'>
+                    <a href='<c:url value="/posts/edit/${post.id}"/>'>
                         <i class="fa fa-edit mr-3"></i>
                     </a>
                     <c:out value="${post.name}"/>
@@ -67,7 +68,7 @@
         </tbody>
     </table>
     <hr>
-    <form action="<c:url value="/posts/save"/>" method="post">
+    <form action="<c:url value="/posts/create/${topic.id}"/>" method="post">
         <div class="form-group col-md-3">
             <h5>Добавить сообщение</h5>
         </div>
@@ -81,7 +82,7 @@
             <textarea class="form-control" name="description" id="textarea"
                       rows="3"></textarea>
         </div>
-        <input type="hidden" name="topicId" value="${topic.id}">
+<%--        <input type="hidden" name="topicId" value="${topic.id}">--%>
         <div class="form-group col-md-3">
             <input class="btn btn-info" type="submit" value="Добавить сообщение"/>
         </div>

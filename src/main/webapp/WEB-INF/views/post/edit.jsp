@@ -35,7 +35,9 @@
     </div>
     <div class="container">
         <h2>Редактирование сообщения</h2>
-        <form action="<c:url value="/posts/save"/>?id=${post.id}" class="form-inline" method="post">
+        <form action="<c:url value="/posts/update/${post.id}"/>"
+              class="form-inline"
+              method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <div class="form-group mx-sm-3 mb-2">
@@ -48,12 +50,9 @@
                 <input type="text" class="form-control" name="description" id="text"
                        value="${post.description}">
             </div>
-            <input type="hidden" name="id" value="${post.id}">
-            <input type="hidden" name="topicId" value="${post.topic.id}">
             <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
         </form>
-        <form action="<c:url value="/posts/delete"/>?id=${post.id}" method="post">
-            <input type="hidden" name="id" value="${post.id}">
+        <form action="<c:url value="/posts/delete/${post.id}"/>" method="post">
             <button type="submit" class="btn btn-primary mb-2">Удалить сообщение</button>
         </form>
     </div>

@@ -10,42 +10,44 @@ import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.PostRepository;
 import ru.job4j.forum.repository.TopicRepository;
 import ru.job4j.forum.repository.UserRepository;
-
-import javax.servlet.http.HttpServletRequest;
+import ru.job4j.forum.service.PostService;
 
 @Controller
 @RequestMapping("/posts")
 public class PostControl {
+    private final PostService postService;
     private final TopicRepository topicRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public PostControl(TopicRepository topicRepository, PostRepository postRepository, UserRepository userRepository) {
+    public PostControl(PostService postService, TopicRepository topicRepository, PostRepository postRepository, UserRepository userRepository) {
+        this.postService = postService;
         this.topicRepository = topicRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/post")
-    public String showPosts(@RequestParam("id") Long topicId, Model model) {
-        Topic topic = topicRepository.findById(topicId).get();
+    @GetMapping("/post/{id}")
+    public String showPosts(@PathVariable("id") Long id, Model model) {
+        Topic topic = topicRepository.findById(id).get();
         model.addAttribute("topic", topic);
         model.addAttribute("username",
                 SecurityContextHolder.getContext().getAuthentication().getName());
         return ("post");
     }
 
-    @GetMapping("/edit")
-    public String edit(@RequestParam("id") long id, Model model) {
-        model.addAttribute("post", postRepository.findById(id).get());
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") long id, Model model) {
+        model.addAttribute("post", postService.findById(id));
         model.addAttribute("username",
                 SecurityContextHolder.getContext().getAuthentication().getName());
         return "post/edit";
     }
 
-    @PostMapping("/save")
-    public String addPost(@ModelAttribute Post post, HttpServletRequest req, Model model) {
-        var topicId = Long.parseLong(req.getParameter("topicId"));
+    @PostMapping("/create/{topicId}")
+    public String addPost(@ModelAttribute Post post,
+                          @PathVariable("topicId") Long topicId,
+                          Model model) {
         Topic topic = topicRepository.findById(topicId).get();
         User user = userRepository.findByUsername(SecurityContextHolder
                 .getContext()
@@ -55,16 +57,25 @@ public class PostControl {
         tempPost.setCreator(user);
         tempPost.setTopic(topic);
         tempPost.setId(post.getId());
-        postRepository.save(tempPost);
+        postService.create(tempPost);
         model.addAttribute("topic", topic);
-        model.addAttribute("posts", topic.getPosts());
-        return "redirect:/";
+        model.addAttribute("posts", tempPost.getTopic().getPosts());
+        return "redirect:/posts/post/" + topic.getId();
     }
 
-    @PostMapping("/delete")
-    public String delete(HttpServletRequest req) {
-        Post post = postRepository.findById(Long.valueOf(req.getParameter("id"))).get();
-        postRepository.delete(post);
-        return "redirect:/";
+    @PostMapping("/update/{postId}")
+    public String update(@PathVariable("postId") Long postId, @ModelAttribute Post post) {
+        Post tempPost = postService.findById(postId);
+        tempPost.setName(post.getName());
+        tempPost.setDescription(post.getDescription());
+        postService.create(tempPost);
+        return "redirect:/posts/post/" + tempPost.getTopic().getId();
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") long id) {
+        Post post = postService.findById(id);
+        postService.delete(post);
+        return "redirect:/posts/post/" + post.getTopic().getId();
     }
 }

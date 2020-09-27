@@ -20,18 +20,24 @@ public class TopicControl {
     }
 
     @GetMapping
-    public String redirect(@RequestParam("username") String username, Model model) {
+    public String redirect(Model model) {
+        String username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
         model.addAttribute("username", username);
         return ("topic/create");
     }
 
     @PostMapping("/addTopic")
-    public String getCreateTopic(@ModelAttribute Topic topic,
-                                 @RequestParam("username") String username) {
+    public String getCreateTopic(@ModelAttribute Topic topic) {
+        String username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
         Topic tempTopic = new Topic(topic.getName());
         tempTopic.setName(topic.getName());
         tempTopic.setCreator(userRepository.findByUsername(username));
-        System.out.println(tempTopic);
         topicRepository.save(tempTopic);
         return "redirect:/";
     }
