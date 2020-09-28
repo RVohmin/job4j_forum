@@ -2,6 +2,7 @@ package ru.job4j.forum.control;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +11,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.forum.Main;
 import ru.job4j.forum.model.Post;
+import ru.job4j.forum.model.Topic;
 import ru.job4j.forum.repository.TopicRepository;
 import ru.job4j.forum.service.PostService;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -34,7 +38,11 @@ class PostControlPostMethodsTest {
     @Test
     @WithMockUser
     public void shouldReturnDefaultMessage() throws Exception {
-        mockMvc.perform(post("/posts/create/2")
+        Topic topic = new Topic("Theme");
+        topic.setId(4L);
+        Mockito.when(topicRepository.findById(4L)).thenReturn(Optional.of(topic));
+
+        mockMvc.perform(post("/posts/create/4")
                 .param("name", "Куплю ладу-грант. Дорого."))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());

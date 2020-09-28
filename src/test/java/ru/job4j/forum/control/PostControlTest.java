@@ -32,7 +32,7 @@ class PostControlTest {
     @Test
     @WithMockUser
     public void shouldReturnPostEdit() throws Exception {
-        this.mockMvc.perform(get("/posts/edit/87"))
+        this.mockMvc.perform(get("/posts/edit/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("post/edit"));

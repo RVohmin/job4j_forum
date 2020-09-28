@@ -2,6 +2,7 @@ package ru.job4j.forum.control;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.forum.Main;
 import ru.job4j.forum.model.Topic;
 import ru.job4j.forum.repository.TopicRepository;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -41,7 +44,8 @@ class TopicControlTest {
     @Test
     @WithMockUser
     public void shouldReturnTopicEditView() throws Exception {
-        this.mockMvc.perform(get("/topic/edit?id=2"))
+        Mockito.when(topicRepository.findById(1L)).thenReturn(Optional.of(new Topic("theme")));
+        this.mockMvc.perform(get("/topic/edit/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("topic/edit"));

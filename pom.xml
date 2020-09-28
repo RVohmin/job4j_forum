@@ -229,7 +229,8 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>4.0.0</version>
           <configuration>
-            <changeLogFile>${basedir}/resources/db/application.xml</changeLogFile>
+            <changeLogFile>/src/main/resources/liquibase-changeLog.xml</changeLogFile>
+<!--            /Users/romanvohmin/projects/job4j_forum/src/main/resources/liquibase-changeLog.xml-->
             <url>${db.url}</url>
             <username>${db.username}</username>
             <password>${db.password}</password>
