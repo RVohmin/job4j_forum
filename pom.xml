@@ -229,7 +229,7 @@
           <artifactId>liquibase-maven-plugin</artifactId>
           <version>4.0.0</version>
           <configuration>
-            <changeLogFile>${basedir}/db/application.xml</changeLogFile>
+            <changeLogFile>${basedir}/resources/db/application.xml</changeLogFile>
             <url>${db.url}</url>
             <username>${db.username}</username>
             <password>${db.password}</password>
