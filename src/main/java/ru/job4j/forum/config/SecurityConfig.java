@@ -16,6 +16,11 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,10 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 + "where u.username = ? and u.authority_id = a.id");
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     /**
      * defines which URL paths should be secured and which should not.
