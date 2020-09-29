@@ -4,7 +4,7 @@
 *.DS_Store
 *.swp
 *.out
-db.properties
+# db.properties
 *.log
 .idea/
 # rails specific
