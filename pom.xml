@@ -19,41 +19,6 @@
   <name>job4j_forum Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-<!--  <profiles>-->
-<!--    &lt;!&ndash;test&ndash;&gt;-->
-<!--    <profile>-->
-<!--      <id>test</id>-->
-<!--      <properties>-->
-<!--        <db.url>jdbc:postgresql://127.0.0.1:5432/forum</db.url>-->
-<!--        <db.username>postgres</db.username>-->
-<!--        <db.password>125478</db.password>-->
-<!--        <db.driver>org.postgresql.Driver</db.driver>-->
-<!--      </properties>-->
-<!--    </profile>-->
-<!--    &lt;!&ndash;production&ndash;&gt;-->
-<!--    <profile>-->
-<!--      <id>production</id>-->
-<!--      <properties>-->
-<!--        <db.url>jdbc:postgresql://127.0.0.1:5432/forum</db.url>-->
-<!--        <db.username>postgres</db.username>-->
-<!--        <db.password>125478</db.password>-->
-<!--        <db.driver>org.postgresql.Driver</db.driver>-->
-<!--      </properties>-->
-<!--    </profile>-->
-<!--    &lt;!&ndash;travis&ndash;&gt;-->
-<!--    <profile>-->
-<!--      <id>travis</id>-->
-<!--      <activation>-->
-<!--        <activeByDefault>true</activeByDefault>-->
-<!--      </activation>-->
-<!--      <properties>-->
-<!--        <db.url>jdbc:postgresql://localhost/forum</db.url>-->
-<!--        <db.username>postgres</db.username>-->
-<!--        <db.password>125478</db.password>-->
-<!--        <db.driver>org.postgresql.Driver</db.driver>-->
-<!--      </properties>-->
-<!--    </profile>-->
-<!--  </profiles>-->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -197,6 +162,15 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <source>14.0.1</source>
+            <target>14.0.1</target>
+          </configuration>
         </plugin>
 <!--        <plugin>-->
 <!--          <groupId>org.liquibase</groupId>-->
