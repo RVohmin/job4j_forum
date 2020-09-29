@@ -197,20 +197,19 @@
           <version>3.6.2</version>
           <configuration>
             <changeLogFile>${basedir}/src/main/resources/liquibase-changeLog.xml</changeLogFile>
-<!--            /Users/romanvohmin/projects/job4j_forum/src/main/resources/liquibase-changeLog.xml-->
             <url>jdbc:postgresql://localhost:5432/forum</url>
             <username>postgres</username>
             <password>125478</password>
             <driver>org.postgresql.Driver</driver>
           </configuration>
-<!--          <executions>-->
-<!--            <execution>-->
-<!--              <phase>process-resources</phase>-->
-<!--              <goals>-->
-<!--                <goal>update</goal>-->
-<!--              </goals>-->
-<!--            </execution>-->
-<!--          </executions>-->
+          <executions>
+            <execution>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>updateSQL</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
   </build>
