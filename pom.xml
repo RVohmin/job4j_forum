@@ -197,7 +197,7 @@
           <version>3.6.2</version>
           <configuration>
             <changeLogFile>${basedir}/src/main/resources/liquibase-changeLog.xml</changeLogFile>
-            <url>jdbc:postgresql://localhost:5432/forum</url>
+            <url>jdbc:postgresql://127.0.0.1:5432/forum</url>
             <username>postgres</username>
             <password>125478</password>
             <driver>org.postgresql.Driver</driver>
