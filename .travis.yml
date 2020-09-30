@@ -5,14 +5,14 @@ services:
 - postgresql
 before_install:
 - psql -c 'create database forum;' -U postgres
+sudo: false
 install: true
 script: mvn clean package -DskipTests=true
-sudo: false
 after_success:
 - bash <(curl -s https://codecov.io/bash) -t 4175088d-e699-46be-9479-7a13266b305f
 notifications:
   email:
-    recipients: vohmin77@gmail.com
+    recipients: "-vohmin77@gmail.com"
     on_success: never
     on_failure: always
 env:
@@ -21,5 +21,5 @@ env:
 deploy:
   provider: heroku
   api_key:
-    secure: nW2JR5vfNJAB0Rjk6i1My84fCAjIg5brSMCEYMFEJ5ajK7Rz85K3lkSDGzla1e9Q/ybpqcjPBSW3RgfN41vGAfkP39lf4Vr2emUxTLE7bScjnoJQR7hLLnPVav3uu1hR1aYcR4md0hGfAaRwk15LuiB5Afr8qF5+KV9zR5oleldmOa18eBSu0DB4MY1mOaYV/3k+nv4k4Rv+yNhnEeGjny0V7e4Bmyjhf8CLPGM1dw03lWoMuwbD2d3W6eqnAYPA9kY8mwJIbhHOPFKp7/4sc4dxZNelRtLTQdeq+E8k7HC5ZfUmfc5pB3Hq+Ur86ig5Vp66XGZ1la+VK55FFrl/AZ4v3eC2GMZt0HSOJi2iSiYkDW6F6mVFSusIwGGosX1SFmxDj7lg+fUfYQCbh50PG6rDKCzKj8U+W1wxZl5GG3MGUe2WR7vVoKX7KKWXtNB3/fsnIt8k3aMAfxnULb9psglWGjl3TUd3IH7oATzVKYvcqXYZQVORziNgBKM/Vvsxg71q3xfFAchYZKypkPw33ydHwPOVvRmnZg2uoSzepXhYXq6HqR0poq11y4S2ZPta7gI5WDjJuT+NwDX9/pdRDQfST+kno+hoaCi3YBqisTW+8TyzC8UaN+4XFB1d3I/nfgNmtZWJUsoPA2AZ+VEaSi8ZbeTEIidfXG1ot9/QznY=
+    secure: CqzdDefXYqk56kuhDwQhJ5XKfepgOJIWR5BJZg6UBkL7iAo538aMfXFwfAnP/4ulzKImDzSxlzqsJZZAIDN+CVwOZ7WSunblHN5Yw0Wn8X6NwWz9PJfVdXvZs27WGdQdxA+igiJPAXPLC0s2nUCJIGqTNPSxYI780IqNM+wczKyco8v+ZSBDJ2iAkw/MunEJP1If2hC0f7GSqrb127Ad8m9VxJHxkXmatvzNntDxTtnmQ5yPL+KoO5s2Awtxt2EPflTlZNrnl+WA9mMFETmajewqS+owXC0+WKycoAh5H5mmDLcjdNbJpHBsLa8S0rJBE8SlaJBeAesJ4K6kL6B9NvyOSUMKb1xrbJh4D7lwmF9MmsZs+1fhvx322vW0BEvQ84SUsmuCY1vLBV8Kgw54usu8IXDp2YXMip5FbFxvaQF3ziWAt1jT9ip0nwxTcmxmvrqMg4ACeIc8AOqRXPfxRtOJ4UGBcsA//erriFiX42fecNvVmu0+tc7yRBt0MBu6PKQ3VF34fCNH4JUo4lYN9HrYM1V7MA9whQZqwWWfzut8EIQnxF0D+ZFI5hrQeOaU2DKWWyfUdencThFnWBnFnVcjCqy6HVjt6gI5qOA7CxviFbrjkEze1SIoZD7hZlcaabOmzoTTw5W73++m88v8mWpxY7UJZmVcy5QvuHBJtp4=
     app: guarded-journey-01174
